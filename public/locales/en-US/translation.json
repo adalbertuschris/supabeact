@@ -1,5 +1,35 @@
 {
   "app": {
     "title": "Veltripo"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "general": {
+    "saving": "Saving",
+    "sending": "Sending",
+    "update": "Update"
+  },
+  "home": {
+    "hello": "Hello",
+    "myProfile": "My profile"
+  },
+  "login": {
+    "title": "Supabase + React",
+    "description": "Sign in via magic link with your email below",
+    "email": "Email",
+    "sendMagicLink": "Send magic link",
+    "emailPlaceholder": "Your email"
+  },
+  "profile": {
+    "title": "My profile",
+    "description": "Update your profile",
+    "firstName": "First name",
+    "lastName": "Last name"
+  },
+  "validation": {
+    "email": "Incorrect email",
+    "required": "This field is required"
   }
 }
