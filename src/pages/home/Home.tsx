@@ -1,22 +1,25 @@
-import { useState } from "react";
-import classes from "./Home.module.css";
-import Button from "../../shared/components/button/Button";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-
-type UserContext = {
-  firstName: string;
-};
+import { useSelector } from "react-redux";
+import classes from "./Home.module.css";
+import Button from "../../shared/components/button/Button";
+import {
+  selectIsAuth,
+  selectUserContext,
+} from "../../features/auth/store/slice";
+import { useAppDispatch } from "../../core/hooks";
+import { signOut } from "../../features/auth/store/effects";
 
 function HomePage() {
-  const [isAuth, setIsAuth] = useState(false);
-  const [userContext, setUserContext] = useState<UserContext>(null!);
+  const isAuth = useSelector(selectIsAuth);
+  const userContext = useSelector(selectUserContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleSignIn = () => navigate("/login");
-  const handleSignOut = () => {};
-  const handleGoToMyProfile = () => {};
+  const handleSignOut = () => dispatch(signOut());
+  const handleGoToMyProfile = () => navigate("/my-profile");
 
   return (
     <div className={classes["homepage"]}>

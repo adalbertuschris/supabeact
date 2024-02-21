@@ -1,19 +1,28 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import classes from "./Login.module.css";
 import Button from "../../../../shared/components/button/Button";
 import Input from "../../../../shared/components/input/Input";
 import { emailValidator } from "../../../../shared/validators/email";
+import { signInViaLoginLink } from "../../store/effects";
+import { useAppDispatch } from "../../../../core/hooks";
+import { selectLoginLinkSent } from "../../store/slice";
 
 type LoginForm = {
   email: string;
 };
 
 function LoginPage() {
+  const dispatch = useAppDispatch();
+  const isLoginLinkSent = useSelector(selectLoginLinkSent);
   const { t } = useTranslation();
   const {
+    reset,
     handleSubmit,
     control,
+    getValues,
     formState: { isSubmitting, isDirty, isValid },
   } = useForm<LoginForm>({
     defaultValues: {
@@ -22,8 +31,16 @@ function LoginPage() {
     mode: "onTouched",
   });
 
+  useEffect(() => {
+    if (isLoginLinkSent && getValues("email")) {
+      alert("Check your email for the login link!");
+      reset();
+    }
+  }, [isLoginLinkSent, reset, getValues]);
+
   const onSubmit: SubmitHandler<LoginForm> = (data) => {
     console.log(data);
+    dispatch(signInViaLoginLink(data.email));
   };
 
   return (
@@ -59,6 +76,7 @@ function LoginPage() {
                 className={classes["form-button"]}
                 disabled={isSubmitting || !isDirty || !isValid}
               >
+                // TODO Is submitting doesn't work as expected
                 {isSubmitting ? t("general.sending") : t("login.sendMagicLink")}
               </Button>
             </div>
