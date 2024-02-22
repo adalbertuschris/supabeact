@@ -32,6 +32,10 @@ export const loadUserContext = (userId: string) => async (dispatch) => {
   }
 };
 
+export const reloadUserContext = (userId: string) => async (dispatch) => {
+  dispatch(loadUserContext(userId));
+};
+
 // TODO Refactor
 export const checkAuth = () => async (dispatch, getState) => {
   dispatch(checkingAuth());

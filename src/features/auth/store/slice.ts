@@ -22,9 +22,6 @@ const authSlice = createSlice({
     signingIn: (state) => {
       state.isSigningIn = true;
     },
-    reloadUserContext: (state, action) => {
-      state.isLoadingUserContext = true;
-    },
     checkingAuth: (state) => {
       state.isCheckingAuth = true;
     },
