@@ -57,6 +57,7 @@ function LoginPage() {
                 {t("login.email")}
               </label>
               <Input
+                id="email"
                 name="email"
                 control={control}
                 rules={{
@@ -76,7 +77,7 @@ function LoginPage() {
                 className={classes["form-button"]}
                 disabled={isSubmitting || !isDirty || !isValid}
               >
-                // TODO Is submitting doesn't work as expected
+                {/* TODO Is submitting doesn't work as expected */}
                 {isSubmitting ? t("general.sending") : t("login.sendMagicLink")}
               </Button>
             </div>
