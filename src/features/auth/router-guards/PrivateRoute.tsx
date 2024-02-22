@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { selectIsAuth, selectIsCheckingAuth } from "../store/slice";
 import { checkAuth } from "../store/effects";
 import { useAppDispatch } from "../../../core/hooks";
@@ -10,22 +10,21 @@ type PrivateRouteProps = {
 };
 
 function PrivateRoute({ children }: PrivateRouteProps) {
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useRef(false);
   const isAuth = useSelector(selectIsAuth);
   const isCheckingAuth = useSelector(selectIsCheckingAuth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(checkAuth());
-    setIsMounted(true);
+    isMounted.current = true;
   }, [dispatch]);
 
-  if (!isMounted || isCheckingAuth) {
+  if (!isMounted.current || isCheckingAuth) {
     return <div>Loading</div>;
-  } else if (isMounted && !isCheckingAuth && isAuth) {
+  } else if (isMounted.current && !isCheckingAuth && isAuth) {
     return children;
   }
-
   return <Navigate to={"/login"} />;
 }
 
