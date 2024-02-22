@@ -9,7 +9,8 @@
   "general": {
     "saving": "Saving",
     "sending": "Sending",
-    "update": "Update"
+    "update": "Update",
+    "error": "Something went wrong"
   },
   "home": {
     "hello": "Hello",
