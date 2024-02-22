@@ -10,19 +10,21 @@ type InputProps<T extends FieldValues> =
 
 function Input<T extends FieldValues>({
   className,
-  type,
   autoFocus,
+  control,
+  rules,
+  name,
   ...props
 }: InputProps<T>) {
-  const { field, fieldState } = useController<T>(props);
+  const { field, fieldState } = useController<T>({ name, control, rules });
 
   return (
     <div>
       <input
+        name={name}
         className={className}
-        type={type}
-        placeholder={props.name}
         autoFocus={autoFocus}
+        {...props}
         {...field}
       />
 
